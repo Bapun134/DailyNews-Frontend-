@@ -1,44 +1,61 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/Login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
+      });
+      // Assuming the response contains the user data
+      const user = response.data.user;
+      login(user);
+      navigate("/");
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
+
   return (
-    <>
-      <div style={{ boxSizing: "border-box" }} className="container form-signin m-auto text-center px-2 py-4 my-3 text-center" >
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          
-          <form style={{ width: "350px", padding: "25px", border: "1px solid black", background: "white", borderRadius: "3px", }} >
-            
-            <h1 className="h3 mb-3 fw-normal">Please Login</h1>
-
-            <div className="form-floating my-4">
-              <input type="email" className="form-control" id="Email" placeholder="Email" required/>
-
-              <label for="Email">Email</label>
-            </div>
-
-            <div className="form-floating my-4">
-              <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required />
-              <label for="floatingPassword">Password</label>
-            </div>
-
-            <div className="checkbox mb-3 d-flex px-1">
-              <label>
-                <input type="checkbox" value="remember-me" /> Remember me
-              </label>
-            </div>
-
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
-              Login
-            </button>
-
-            <div className="checkbox mb-3 mt-3">
-              <label>Dont Have an Account ? Register Here</label>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        
+        <h2><b>Login</b></h2>
+        {error && <p className="login-error">{error}</p>}
+        
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 

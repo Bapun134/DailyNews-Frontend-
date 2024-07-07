@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NewsList from "./NewsList";
-import '../styles/News_Body.css'
+import '../styles/News_Body.css';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { Row, Col, Nav, Form, FormControl, Button, Container,Dropdown, DropdownButton} from "react-bootstrap";
 
 function News_Body() {
+
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // checking first , wheather user is registered and logged in or not
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate('/login');
+    }
+  }, [auth, navigate]);
+
 
   const [category, setCategory] = useState("general");
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,6 +35,7 @@ function News_Body() {
 
   const handleCountrySelect = (selectedCountry)=>{
     setCountry(selectedCountry);
+    setSearchTerm("");
   }
 
   return (
@@ -54,7 +68,7 @@ function News_Body() {
         <Container>
           <Row>
             <Col xs={12} md={3} lg={2} className="categories-sidebar">
-              <h4>Categories :</h4>
+              <h4><b>Categories :</b></h4>
               <Nav className="flex-column ">
                 <Nav.Link onClick={() => handleCategoryClick("general")}> General</Nav.Link>
                 <Nav.Link onClick={() => handleCategoryClick("business")}> Business</Nav.Link>

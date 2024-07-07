@@ -49,4 +49,14 @@
     color: #0056b3;
   }
   
+  .welcome-text {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  /* logout button */
+  .btn {
+    font-size: 14px;
+    margin-left: 10px;
+  }
   

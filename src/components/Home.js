@@ -9,10 +9,6 @@ const Home = () => {
     navigate('/news');
   };
 
-  const navigateToContact = ()=>{
-    navigate('/contact');
-  }
-
   return (
     <>
 
@@ -22,13 +18,13 @@ const Home = () => {
       <h2 className="fw-bold">Welcome to Daily News!</h2>
 
       <div className="col-lg-6 mx-auto">
-        <h4>Stay informed with the latest updates from around the globe.</h4>
+        <h4><b>Stay informed with the latest updates from around the globe.</b></h4>
         <p className="lead mb-4" >
           At Daily Insight News, we bring you breaking news, in-depth analysis, and insightful commentary on the most pressing issues of our time.
         </p>
         <div className="d-grid gap-3 d-sm-flex justify-content-sm-center">
           <button type="button" onClick={navigateToNews} className="btn btn-primary btn-lg px-4 gap-3">Getting Started</button>
-          <button type="button" onClick={navigateToContact} className="btn btn-outline-secondary btn-lg px-4">Contact-Us</button>
+          <button type="button" className="btn btn-outline-secondary btn-lg px-4">Contact-Us</button>
         </div>
       </div>
 

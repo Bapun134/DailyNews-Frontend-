@@ -1,44 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import "../styles/Register.css";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:5000/register", {
+        name,
+        email,
+        password,
+      });
+      
+      setSuccess(response.data.message);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      
+      setError(""); // Clear any previous errors
+    } catch (error) {
+      setError(error.response.data.message);
+      setSuccess(""); // Clear any previous success messages
+    }
+  };
+
   return (
-    <div>
-      <div style={{ boxSizing: "border-box" }} className="container form-signin w-100 m-auto text-center px-2 py-4 my-3 text-center" >
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          
-          <form onSubmit={() => alert("You have Successfully Registered.")} style={{ width: "350px", padding: "25px", border: "1px solid black", background: "white", borderRadius: "3px", }} >
-            <h1 className="h3 mb-3 fw-normal">Register</h1>
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleSubmit}>
+        
+        <h2><b>Register</b></h2>
+        {success && <p className="success-message">{success}</p>}
+        {error && <p className="error-message">{error}</p>}
 
-            <div className="form-floating my-4">
-              <input type="text" className="form-control" name="username" id="username" placeholder="Username" required/>
-              <label for="username">Username</label>
-            </div>
-
-            <div className="form-floating my-4">
-              <input type="email" className="form-control" name="email" id="Email" placeholder="Email" required />
-              <label for="Email">Email</label>
-            </div>
-
-            <div className="form-floating my-4">
-              <input type="date" className="form-control" name="dob" id="dob" placeholder="Date" required/>
-              <label for="dob">Date Of Birth</label>
-            </div>
-
-            <div className="form-floating my-4">
-              <input type="password" className="form-control" name="password" id="floatingPassword" placeholder="Password" required />
-              <label for="floatingPassword">Password</label>
-            </div>
-
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
-              Register
-            </button>
-
-            <div className="checkbox mb-3 mt-3">
-              <label>Have an Account ? Login Now</label>
-            </div>
-          </form>
-        </div>
-      </div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 }
