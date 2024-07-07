@@ -38,7 +38,7 @@ const NewsList = ({category, searchTerm, country}) => {
               <Card.Body>
                 <Card.Title>{`${article.title?.substring(0, 50) || 'No title available'}...`}</Card.Title>
                 <Card.Text>{`${article.description?.substring(0, 50) || 'No description available'}...`}</Card.Text>
-                <a href={article.url} target='_blank' rel="noopener noreferrer" className="btn btn-primary">
+                <a href={article.url} target='_blank' rel="noopener noreferrer" className="btn btn-outline-primary">
                   Read More
                 </a>
               </Card.Body>
