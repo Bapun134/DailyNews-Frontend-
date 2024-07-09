@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import useNewsData from "../hooks/useNewsData";
 import CustomPagination from "./CustomPagination";
@@ -10,6 +10,11 @@ const NewsList = ({category, searchTerm, country}) => {
   const pageSize = 8;
 
   const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Reset currentPage to 1 whenever category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category]);
 
   const { newsData, loading, error } = useNewsData(category, searchTerm, country);           //custom hook
 

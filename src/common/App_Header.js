@@ -1,7 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom';
 import React, { useContext } from 'react';
 import { Navbar,Container,} from "react-bootstrap";
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthProvider';
 import  '../styles/App_Header.css'
 
 function App_Header() {
@@ -9,11 +9,11 @@ function App_Header() {
   const date  = new Date();
   const currentDate = date.toLocaleDateString();
 
-  const { auth, logout } = useContext(AuthContext);
+  const { auth, deauthenticateUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    deauthenticateUser();
     navigate('/');
   };
 

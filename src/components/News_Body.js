@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import NewsList from "./NewsList";
 import '../styles/News_Body.css';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, Nav, Form, FormControl, Button, Container,Dropdown, DropdownButton} from "react-bootstrap";
+import { Card, Row, Col, Nav, Form, FormControl, Button, Container,Dropdown, DropdownButton} from "react-bootstrap";
 
 function News_Body() {
 
@@ -29,7 +29,6 @@ function News_Body() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setCategory("");
     setSearchTerm(event.target.search.value);
   };
 
@@ -37,6 +36,14 @@ function News_Body() {
     setCountry(selectedCountry);
     setSearchTerm("");
   }
+
+  const categoryLabels = {
+    general: "General",
+    business: "Business",
+    technology: "Technology",
+    sports: "Sports",
+    entertainment: "Entertainment"
+  };
 
   return (
     <>
@@ -79,6 +86,12 @@ function News_Body() {
             </Col>
 
             <Col xs={12} md={9}>
+              <Card.Body className="mb-3">
+                <Card.Title className="text-center" as="h3" style={{ backgroundColor: '#d4edda', borderRadius: '10px', padding: '10px' }}>
+                  {categoryLabels[category]} News :
+                </Card.Title>
+              </Card.Body>
+              
               <NewsList category={category} searchTerm={searchTerm} country={country} />          {/* NewsList Component */}
             </Col>
 

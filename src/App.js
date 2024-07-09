@@ -5,7 +5,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Login from './components/Login'
 import Register from './components/Register'
-import AuthProvider from './context/AuthContext';
+import AuthProvider from './context/AuthProvider';
 
 function App() {
 
