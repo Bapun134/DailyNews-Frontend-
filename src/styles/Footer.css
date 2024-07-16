@@ -1,0 +1,37 @@
+.footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e7e7e7;
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.privacy-policy-link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.privacy-policy-link:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.social-icon {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 28px;
+}
+
+.social-icon:hover {
+  color: #a2c3e7;
+}

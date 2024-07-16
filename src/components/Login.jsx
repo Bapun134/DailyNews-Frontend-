@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Login.css";
 
@@ -36,23 +36,13 @@ const Login = () => {
         {error && <p className="login-error">{error}</p>}
         
         <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <input type="email" id="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
         <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <input type="password" id="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        
+        <Link to="/forgot-password">Forgot Password?</Link>
+
         <button type="submit">Login</button>
       </form>
     </div>

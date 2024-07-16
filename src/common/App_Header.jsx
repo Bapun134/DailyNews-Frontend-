@@ -1,14 +1,11 @@
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useContext } from 'react';
-import { Navbar,Container,} from "react-bootstrap";
+import { Navbar, Container, Dropdown } from "react-bootstrap";
 import { AuthContext } from '../context/AuthProvider';
-import  '../styles/App_Header.css'
+import '../styles/App_Header.css';
+import { FaNewspaper, FaRegLifeRing, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 
 function App_Header() {
-
-  const date  = new Date();
-  const currentDate = date.toLocaleDateString();
-
   const { auth, deauthenticateUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -36,21 +33,29 @@ function App_Header() {
                 <Link className="nav-link" to="/news">News</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
+                <Link className="nav-link" to="/magazine">Magazines</Link>
               </li>
             </ul>
           </Navbar.Collapse>
 
-          <span className="nav-item date-item mx-4">Date: {currentDate}</span>
-
           {/* register, login, logout section in navbar */}
-          
+
           {auth.isAuthenticated ? (
-            <>
-              <span className="nav-item welcome-text">Welcome, {auth.user?.name}</span>
-              <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
-            </>
-            
+            <Dropdown alignRight >
+              <Dropdown.Toggle variant="light" id="dropdown-basic" style={{marginLeft:'0px'}}>
+                <FaUserCircle size={24} />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.ItemText><FaUserCircle className="me-2"/> {auth.user?.name}</Dropdown.ItemText>
+                <Dropdown.Divider />
+
+                <Dropdown.Item as={Link} to="/subscription"> <FaNewspaper className="me-2" /> Subscription</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/help"> <FaRegLifeRing className="me-2" /> Help & Support</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}> <FaSignOutAlt className="me-2" /> Logout </Dropdown.Item>
+                
+              </Dropdown.Menu>
+            </Dropdown>
           ) : (
             <>
               <span className="login-item ">
@@ -65,9 +70,8 @@ function App_Header() {
 
         </Container>
       </Navbar>
-
     </>
   )
 }
 
-export default App_Header
+export default App_Header;
